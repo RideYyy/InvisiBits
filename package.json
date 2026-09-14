@@ -1,6 +1,6 @@
 {
   "name": "invisibits",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "Client-side image and WAV LSB steganography tool",
