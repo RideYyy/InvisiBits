@@ -2,6 +2,8 @@
 
 InvisiBits is an educational browser-based LSB steganography tool. It hides UTF-8 text in images and uncompressed WAV audio, extracts it again, and estimates the likelihood of LSB embedding. All operations happen locally: files, messages, and passwords are never sent to a server.
 
+Current application version: **1.1.0**. The binary container format remains at **version 1**, so files created with InvisiBits 1.0.0 remain compatible.
+
 ## Features
 
 - Valid PNG and JPG/JPEG input up to 5 MB
@@ -32,6 +34,19 @@ docker compose down
 ```
 
 The build runs the tests in a Node container before copying the static application into a minimal nginx image. No host dependencies need to be installed.
+
+### Reproducible versions
+
+The Dockerfile pins both the full image version and the multi-platform digest. Normal builds therefore do not silently move to a newer base image:
+
+| Component | Pinned version |
+| --- | --- |
+| Application | 1.1.0 |
+| Container format | 1 |
+| Node test image | 22.22.2 / Alpine 3.23 |
+| nginx runtime image | 1.30.4 / Alpine 3.24 |
+
+Version upgrades are intentional source changes: update the tag and verified digest together, run the tests, and record the application change in Git.
 
 ## Usage
 
