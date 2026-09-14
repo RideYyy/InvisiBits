@@ -1,11 +1,11 @@
-FROM node:22-alpine AS test
+FROM node:22.22.2-alpine3.23@sha256:8ea2348b068a9544dae7317b4f3aafcdc032df1647bb7d768a05a5cad1a7683f AS test
 WORKDIR /app
 COPY package.json ./
 COPY src ./src
 COPY tests ./tests
 RUN npm test
 
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:1.30.4-alpine3.24@sha256:02b1b2a0445514891a14aa371845f6085d5d9d10d385b30d6aad606a50a29a05 AS runtime
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html /usr/share/nginx/html/index.html
 COPY src /usr/share/nginx/html/src
