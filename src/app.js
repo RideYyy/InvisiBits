@@ -160,14 +160,16 @@ byId("detection-form").addEventListener("submit", (event) => {
       try { ownHeader = readContainerHeader(extractFromRgba(image.rgba)); } catch { /* Not an InvisiBits container. */ }
 
       const result = ownHeader
-        ? { confidence: 100, level: "InvisiBits container found", details: `Version 1 · ${ownHeader.encrypted ? "encrypted" : "no password"} · ${ownHeader.compressed ? "compressed" : "not compressed"} · ${humanSize(ownHeader.totalLength)}` }
+        ? { score: 100, level: "InvisiBits container found", details: `Version 1 · ${ownHeader.encrypted ? "encrypted" : "no password"} · ${ownHeader.compressed ? "compressed" : "not compressed"} · ${humanSize(ownHeader.totalLength)}` }
         : analyzeLsb(sampledRgb(image.rgba));
 
-      byId("detection-score").textContent = `${result.confidence}%`;
+      byId("detection-score").textContent = ownHeader ? "Exact" : `${result.score}/100`;
       byId("detection-label").textContent = result.level;
       byId("detection-details").textContent = result.details;
       byId("detection-result").hidden = false;
-      setStatus("detection-status", ownHeader ? "The exact format signature was detected." : "No exact signature was found; showing a heuristic estimate.", "success");
+      setStatus("detection-status", ownHeader
+        ? "The exact format signature was detected."
+        : "No InvisiBits signature was found. This score describes LSB distribution similarity, not the probability of hidden data.", "success");
     } catch (error) { presentError("detection-status", error); }
   });
 });

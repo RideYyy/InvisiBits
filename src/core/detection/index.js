@@ -6,7 +6,7 @@ function clamp(value, minimum, maximum) {
 
 export function analyzeLsb(values) {
   if (values.length < 256) {
-    return { confidence: 0, level: "Not enough data", details: "The file is too small for statistical analysis." };
+    return { score: 0, level: "Not enough data", details: "The file is too small for statistical analysis." };
   }
 
   const histogram = new Uint32Array(256);
@@ -25,13 +25,17 @@ export function analyzeLsb(values) {
     pairTotal += histogram[value] + histogram[value + 1];
   }
   const pairScore = clamp(1 - (pairDifference / Math.max(1, pairTotal)) * 5, 0, 1);
-  const confidence = Math.round((balanceScore * 0.4 + pairScore * 0.6) * 100);
-  const level = confidence >= 75 ? "High" : confidence >= 45 ? "Medium" : "Low";
+  const score = Math.round((balanceScore * 0.4 + pairScore * 0.6) * 100);
+  const level = score >= 75
+    ? "Elevated LSB similarity"
+    : score >= 45
+      ? "Moderate LSB similarity"
+      : "Limited LSB similarity";
 
   return {
-    confidence,
+    score,
     level,
-    details: `LSB one ratio: ${(oneRatio * 100).toFixed(2)}%; pair imbalance: ${((pairDifference / pairTotal) * 100).toFixed(2)}%.`,
+    details: `Distribution score only · LSB one ratio: ${(oneRatio * 100).toFixed(2)}%; pair imbalance: ${((pairDifference / pairTotal) * 100).toFixed(2)}%.`,
   };
 }
 

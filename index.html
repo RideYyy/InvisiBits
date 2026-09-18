@@ -101,13 +101,13 @@
       </section>
 
       <section class="workspace tab-panel" id="detection" aria-label="Steganography detector" hidden>
-        <div class="section-heading"><div><p class="section-kicker">A quick first look</p><h2>Analyze an image</h2></div><p class="format-note">The detector recognizes InvisiBits exactly and estimates other LSB embedding statistically. The estimate is not forensic proof.</p></div>
+        <div class="section-heading"><div><p class="section-kicker">A quick first look</p><h2>Analyze an image</h2></div><p class="format-note">The detector recognizes the InvisiBits signature exactly. For other images, it reports an LSB distribution score—not a probability.</p></div>
         <form class="tool-card detector-card" id="detection-form" novalidate>
           <label class="file-drop"><input id="detection-file" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" required><span class="file-drop__icon" aria-hidden="true">?</span><span class="file-drop__title">Choose an image to analyze</span><span class="file-drop__meta" data-file-label="detection-file">PNG or JPG, up to 5 MB</span></label>
           <button class="primary-button" type="submit">Analyze image</button>
           <p class="status" id="detection-status" role="status" aria-live="polite"></p>
-          <div class="detection-result" id="detection-result" hidden><div class="score" id="detection-score">0%</div><div><p class="score-label" id="detection-label"></p><p id="detection-details"></p></div></div>
-          <p class="disclaimer">Compression, noise, image generation, and editing can all affect a statistical result. Treat it as a clue, not a conclusion.</p>
+          <div class="detection-result" id="detection-result" hidden><div class="score" id="detection-score">0/100</div><div><p class="score-label" id="detection-label"></p><p id="detection-details"></p></div></div>
+          <p class="disclaimer">A high similarity score can occur in an ordinary image. Compression, noise, image generation, and editing all affect LSB statistics, so treat the score as a clue—not a conclusion.</p>
         </form>
       </section>
 

@@ -66,12 +66,12 @@ InvisiBits supports uncompressed 8, 16, 24, and 32-bit PCM WAV. It changes the l
 
 ### Detector
 
-When the `IVBT` signature is present in RGB-LSB data, the application reports an InvisiBits container with 100% confidence. Otherwise, it displays a heuristic estimate based on:
+When the `IVBT` signature is present in RGB-LSB data, the application reports an exact InvisiBits match. Otherwise, it displays a heuristic similarity score from 0 to 100 based on:
 
 - how closely the zero and one LSB distribution approaches 50/50;
 - how similar the frequencies are within value pairs `(0,1)`, `(2,3)` through `(254,255)`.
 
-The more the LSB distribution resembles uniformly embedded data, the higher the score. It is an indicator, not proof: noisy, generated, or processed images may cause false positives, while a sophisticated algorithm may remain undetected.
+The more the LSB distribution resembles uniformly embedded data, the higher the score. The score is not a probability that hidden data exists. Ordinary, noisy, generated, or processed images may score highly, while a sophisticated algorithm may remain undetected.
 
 ## Container format
 
