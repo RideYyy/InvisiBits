@@ -106,7 +106,8 @@ byId("audio-encode-form").addEventListener("submit", (event) => {
       });
       const result = encodeWav(source, packed.bytes);
       downloadBlob(new Blob([result.bytes], { type: "audio/wav" }), stegWavName(file.name));
-      setStatus("audio-encode-status", `Done: ${result.info.sampleRate} Hz, ${result.info.bitsPerSample}-bit PCM. WAV downloaded.`, "success");
+      const compression = packed.metadata.compressed ? "compressed" : "compression did not reduce the text";
+      setStatus("audio-encode-status", `Done: ${result.info.sampleRate} Hz, ${result.info.bitsPerSample}-bit PCM, ${humanSize(packed.bytes.length)} container (${compression}). WAV downloaded.`, "success");
     } catch (error) { presentError("audio-encode-status", error); }
   });
 });
