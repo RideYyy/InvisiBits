@@ -138,6 +138,8 @@ footer p { margin: 0; }
 @media (max-width: 430px) {
   h1 { font-size: 43px; }
   .version { display: none; }
+  .tabs { width: 100%; overflow-x: visible; }
+  .tab { flex: 1 1 0; min-width: 0; padding: 9px 4px; font-size: 13px; }
   .tool-card { padding: 17px; }
   footer { flex-direction: column; align-items: flex-start; justify-content: center; }
 }
